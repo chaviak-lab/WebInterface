@@ -5,7 +5,7 @@ import CardItemComponet from './components/card-item-component/CardItem-componen
 
 function App() {
   const itemList = [
-    { id: 1, name: "apple granny smith organic", imgurl: "", price: 20 },
+    { id: 1, name: "apple granny smith organic", imgurl: "https://cdn.britannica.com/22/187222-050-07B17FB6/apples-on-a-tree-branch.jpg", price: 20 },
   ]
   return (
     <section className="app">
