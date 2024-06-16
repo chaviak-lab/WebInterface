@@ -1,25 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import Menu from "./components/menu/Menu";
+import ShopCard from "./components/shop-card/ShopCard"
+import CardItemComponet from './components/card-item-component/CardItem-component';
 
 function App() {
+  const itemList = [
+    { id: 1, name: "apple granny smith organic", imgurl: "", price: 20 },
+  ]
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <section className="app">
+      <header className="app-header">
+        <Menu />
       </header>
-    </div>
+      <main>
+        <section className="container">
+
+          <div className="row">
+            {itemList.map(item => {
+              return (
+                <CardItemComponet key={item.id} card={item} />
+              );
+            })}
+          </div>
+        </section>
+      </main>
+    </section>
   );
 }
-
-export default App;
+export default App
