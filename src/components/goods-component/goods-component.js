@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { LOCALSTORE_TOTALITEMS } from "../../constants";
 import ShopCard from "../shop-card/ShopCard";
-const ListComponents = () => {
+const GoodsComponent = ({ itemsList }) => {
     const cards = [
         {
             id: 1, title: "Grapefruit (шт)", price: 12, imgUrl: "",
@@ -16,21 +17,35 @@ const ListComponents = () => {
         },
         { id: 4, title: "Cucumber (шт)", price: 30, imgUrl: "", added: 0 },
     ];
+    const [itemsToSell, setItemsToSell] = useState(itemsList);
     const [totalItems, setTotalItems] = useState([]);
-    const totalPriceClick = (item) => {
-        console.log("totalPriceClick", cards);
-        cards.forEach((itemF, indexF) => {
-            if (itemF.id === item.id) {
-                cards[indexF].added++;
-            }
-        });
-        setTotalItems([...totalItems, item]);
-    }
-    const removeItem = (item) => {
-        console.log("removeItem", item);
-    }
+    useEffect(() => {
+        getLocalStore();
+    }, []);
+    const getLocalStore = () => {
+        let cardsLocal = window.localStorage.getItem(LOCALSTORE_TOTALITEMS);
+        cardsLocal = cardsLocal ? JSON.parse(cardsLocal) : null;
+        if (cardsLocal && Array.isArray(cardsLocal) && cardsLocal.length > 0) {
+            setTotalItems(cardsLocal);
+        }
+    };
+    const addItem = (cardItem) => {
+        const updatedTotalItems = [...totalItems, cardItem];
+        setTotalItems(updatedTotalItems);
+        window.localStorage.setItem(LOCALSTORE_TOTALITEMS, JSON.stringify(updatedTotalItems));
+    };
+    const removeItem = (cardItem) => {
+        const updatedTotalItems = totalItems.filter(item => item.id !== cardItem.id);
+        setTotalItems(updatedTotalItems);
+        window.localStorage.setItem(LOCALSTORE_TOTALITEMS, JSON.stringify(updatedTotalItems));
+    };
+
+    const setSortTotalItems = (cards) => {
+        setItemsToSell(cards);
+    };
     return (
-        <main>
+        <div>
+           <main>
             <section className="container my-5">
                 <div className="row">
                     
@@ -47,7 +62,7 @@ const ListComponents = () => {
                             <ShopCard
                                 card={item}
                                 key={item.id}
-                                getItem={totalPriceClick}
+                                getItem={addItem}
                                 removeItem={removeItem}
                             />
                         );
@@ -55,6 +70,7 @@ const ListComponents = () => {
                 </div>
             </section>
         </main>
+        </div>
     );
 };
-export default ListComponents;
+export default GoodsComponent;

@@ -8,7 +8,9 @@ const MenuComponent = () => {
                 <Nav className="me-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/bin">Bin</Nav.Link>
+                    <Nav.Link href="/goods">Goods</Nav.Link>
                     <Nav.Link href="/about">About</Nav.Link>
+                    
                 </Nav>
             </Container>
         </Navbar>
