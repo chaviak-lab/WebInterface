@@ -1,21 +1,32 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import {Card, Button} from "react-bootstrap";
 
 const ShopCard = (props) => {
-  const { card } = props;
-  const title = card?.title ?? "Default Title";
-  const description = card?.description ?? "Default Description";
+ const addItem = () => {
+ props.getItem(props.card);
+ console.log(props.card);
+ }
+ const removeItem = () => {
+ props.removeItem(props.card);
+ console.log(props.card);
+ }
+ return (
+ <div className="mt-3 col-12 col-sm-6 col-md-4 col-xl-3">
+ <Card>
+ <Card.Img variant="top" src={"/assets/imgs/" + props.card.imgUrl}/>
+ <Card.Body>
+ <Card.Title>{props.card.title}</Card.Title>
+ <Card.Subtitle>{props.card.description}</Card.Subtitle>
+ <Card.Text>{props.card.price} грн.</Card.Text>
+ </Card.Body>
+ <Card.Footer>
+ <Button variant="success" onClick={addItem}>В кошик</Button>
+ <Button variant="danger" onClick={removeItem}>-</Button>
+ <span> Вибрано {props.card.added}</span>
+ </Card.Footer>
+ </Card>
+ </div>
+ );
 
-  return (
-    <Card>
-      <Card.Img variant="top" src="https://via.placeholder.com/100x180" />
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>{description}</Card.Text>
-        <Button variant="outline-secondary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
-  );
 };
-
-export default ShopCard;
+export default ShopCard

@@ -1,30 +1,25 @@
 import './App.css';
-import Menu from "./components/menu/Menu";
-import ShopCard from "./components/shop-card/ShopCard"
-import CardItemComponet from './components/card-item-component/CardItem-component';
+import MenuComponent from "./components/menu/Menu";
+import { Routes, Route } from "react-router-dom";
+import BinComponent from "./components/bin-component/bin-component";
+import AboutComponent from "./components/about-component/about-component";
+import ListComponents from "./components/list-component/list-component";
 
 function App() {
-  const itemList = [
-    { id: 1, name: "apple granny smith organic", imgurl: "https://cdn.britannica.com/22/187222-050-07B17FB6/apples-on-a-tree-branch.jpg", price: 20 },
-  ]
   return (
     <section className="app">
       <header className="app-header">
-        <Menu />
+        <MenuComponent />
       </header>
-      <main>
-        <section className="container">
+      <Routes>
+        <Route path="/bin" element={<BinComponent />} />
+        <Route path="about" element={<AboutComponent />} />
 
-          <div className="row">
-            {itemList.map(item => {
-              return (
-                <CardItemComponet key={item.id} card={item} />
-              );
-            })}
-          </div>
-        </section>
-      </main>
+        <Route path="/" element={<ListComponents/>} />       
+      </Routes>
+     
     </section>
+
   );
 }
-export default App
+export default App;
